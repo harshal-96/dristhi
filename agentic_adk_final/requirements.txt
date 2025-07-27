@@ -1,0 +1,17 @@
+fastapi
+uvicorn[standard]
+python-multipart
+aiofiles
+aiosqlite
+pydantic
+pydantic-settings
+google-generativeai
+google-adk
+opencv-python
+requests
+python-dotenv
+websockets
+yt-dlp
+Pillow
+numpy
+reportlab

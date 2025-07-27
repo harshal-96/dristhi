@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  safety-monitoring:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+      - GOOGLE_MAPS_API_KEY=${GOOGLE_MAPS_API_KEY}
+      - TWITTER_BEARER_TOKEN=${TWITTER_BEARER_TOKEN}
+      - TAVILY_API_KEY=${TAVILY_API_KEY}
+    volumes:
+      - ./temp:/app/temp
+      - ./static:/app/static
+      - ./safety_monitoring.db:/app/safety_monitoring.db
+    restart: unless-stopped
+    
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+    
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - safety-monitoring
+    restart: unless-stopped
