@@ -1,0 +1,22 @@
+export const config = {
+  googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
+  isProduction: process.env.NODE_ENV === "production",
+  isDevelopment: process.env.NODE_ENV === "development",
+}
+
+export const validateConfig = () => {
+  const issues = []
+
+  if (!config.googleMapsApiKey) {
+    issues.push("NEXT_PUBLIC_GOOGLE_MAPS_API_KEY is missing")
+  }
+
+  if (config.googleMapsApiKey === "yAIzaSyCaPXuD7N5pw9YgM8oiyaVEEnijUH16LvA") {
+    issues.push("NEXT_PUBLIC_GOOGLE_MAPS_API_KEY is set to placeholder value")
+  }
+
+  return {
+    isValid: issues.length === 0,
+    issues,
+  }
+}
